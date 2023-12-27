@@ -1,0 +1,35 @@
+[user]
+	name = Eddie Yu
+	email = 32135564+eddieyutc@users.noreply.github.com
+	#signingkey = <SIGNKEY>
+[core]
+	editor = code -w
+[credential]
+	helper = cache --timeout=604800
+[pull]
+	rebase = true
+[alias]
+    	co = checkout
+    	s = status
+    	b = branch
+    	cob = checkout -b
+    	c = commit
+    	cm = commit -m
+    	ca = commit --amend
+    	p = push
+    	unstage = reset HEAD --
+    	lg = log --graph
+    	ll = log --oneline
+    	last = log -1 HEAD --stat
+    	gl = config --global -l
+    	pick = cherry-pick
+    	a = add
+    	aa = add .
+    	pu = push -u
+    	rb = rebase
+    	ac = !git add . && git commit
+    	aca = !git add . && git commit --amend
+#[commit]
+	#gpgsign = true
+#[includeIf "gitdir:$TARGET_DIR"]
+	#path = $TARGET_DIR/.gitconfig

@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+
+# Colors
+COLOR_OFF='\033[0m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[00;34m'
+
+# Logging tag
+INFO="\r  [ $BLUE..$COLOR_OFF ]"
+USER="\r  [ $YELLOW??$COLOR_OFF ]"
+ALERT="\r  [ $RED!!$COLOR_OFF ]"
+SUCCESS="\r\033[2K  [ ${GREEN}OK$COLOR_OFF ]"
+FAIL="\r\033[2K  [${RED}FAIL$COLOR_OFF]"
+
+DOTFILES_ROOT=$(pwd -P)
+
+set -e
+
+setup_nala () {
+  if ! test $(which nala)
+  then
+      printf "$INFO Installing nala (apt wrapper)\n"
+  
+      sudo apt-get install nala -y
+  
+      printf "$SUCCESS nala installed\n"
+  fi
+}
+
+
+setup_stow () {
+  if ! test $(which stow)
+  then
+    printf "$INFO Installing stow (for sym linking)\n"
+
+    sudo nala install stow -y
+
+    printf "$SUCCESS stow installed\n"
+  fi
+}
+
+delete_dotfiles () {
+  for file in $1
+  do
+    if [ -f $HOME/$file ] || [ -L $HOME/$file ]
+    then
+      rm -f "$HOME/$file"
+      printf "$INFO Deleted dotfile $HOME/$file \n"
+    fi
+  done
+}
+
+install_dotfiles () {
+  printf "$INFO Installing dotfiles\n"
+
+  for package in $(find -mindepth 1 -maxdepth 1 -not -empty -not -path '*/\.git' -type d | sed 's|^./||')
+  do
+    printf "$INFO Installing dotfiles for $package\n"
+    CONFLICTS=$(stow --no --verbose $package 2>&1 | awk '/\* existing target is/ {print $NF}')
+    if [ -n "$CONFLICTS" ]
+    then
+      printf "$ALERT Do you want to overwrite the following exising config files?\n"
+      echo $CONFLICTS | tr ' ' '\n'
+      read -p "y/n> " -e action
+
+      if [ "$action" = 'y' ] || [ "$action" = 'yes' ] || [ "$action" = '' ]
+      then
+        delete_dotfiles "$CONFLICTS"
+        stow --no-folding --verbose $package
+        printf "$SUCCESS Dotfiles installed for $package\n"
+      else
+        printf "$INFO Skipping dotfiles for $package\n"
+      fi
+    else
+      stow --no-folding --verbose $package
+      printf "$SUCCESS Dotfiles installed for $package\n"
+    fi
+  done
+}
+
+setup_nala
+setup_stow
+install_dotfiles
+
+printf "$SUCCESS Finished!\n"
