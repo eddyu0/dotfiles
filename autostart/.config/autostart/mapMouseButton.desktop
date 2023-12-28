@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=python3 $HOME/bin/mapMouseButton.py
+Exec=python3 /home/eddie/bin/mapMouseButton.py
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true
