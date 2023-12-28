@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# script for packages that doesn't not auto update
+
+set -euo pipefail
+
+# aws cli
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip"
+unzip /tmp/awscliv2.zip -d /tmp
+sudo /tmp/aws/install
+
+# Bitwarden
+wget -O /tmp/bitwarden.deb "https://vault.bitwarden.com/download/?app=desktop&platform=linux&variant=deb"
+sudo nala install /tmp/bitwarden.deb
+
+# Chrome
+wget -P /tmp https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo nala install /tmp/google-chrome-stable_current_amd64.deb -y

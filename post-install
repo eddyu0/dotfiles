@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# docker
+if ! [ $(getent group docker) ]; then
+  sudo groupadd docker
+fi
+sudo usermod -aG docker $USER
+
+# cht.sh bash completion
+mkdir -p ~/.bash.d
+curl https://cheat.sh/:bash_completion > ~/.bash.d/cht.sh
+. ~/.bash.d/cht.sh
+# and add . ~/.bash.d/cht.sh to ~/.bashrc
+
+# aws bash completion
+completer_path=$(which aws_completer)
+complete -C $completer_path aws
+
+echo "Finish running post installation"

@@ -14,9 +14,7 @@ ALERT="\r  [ $RED!!$COLOR_OFF ]"
 SUCCESS="\r\033[2K  [ ${GREEN}OK$COLOR_OFF ]"
 FAIL="\r\033[2K  [${RED}FAIL$COLOR_OFF]"
 
-DOTFILES_ROOT=$(pwd -P)
-
-set -e
+set -euo pipefail
 
 setup_nala () {
   if ! test $(which nala)
@@ -55,7 +53,7 @@ delete_dotfiles () {
 install_dotfiles () {
   printf "$INFO Installing dotfiles\n"
 
-  for package in $(find -mindepth 1 -maxdepth 1 -not -empty -not -path '*/\.git' -type d | sed 's|^./||')
+  for package in $(find -mindepth 1 -maxdepth 1 -not -empty -not -path '*/\.git' -not -name 'packages' -type d | sed 's|^./||')
   do
     printf "$INFO Installing dotfiles for $package\n"
     CONFLICTS=$(stow --no --verbose $package 2>&1 | awk '/\* existing target is/ {print $NF}')

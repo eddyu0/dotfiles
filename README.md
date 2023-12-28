@@ -4,8 +4,14 @@ Using idea from [holman](https://github.com/holman/dotfiles), [daviwil](https://
 
 ## Usage
 
+Bootstrap: install nala, stow, and sym-links all dotfiles within each folder to home directory according to their sub-folder structure using stow.
+
 ```sh
 ./bootstrap
 ```
 
-It will sym links all dotfiles within each folders to home directory according to their sub-folder structure.
+Install packages and other custom installation (e.g. vscode extension)
+
+```sh
+./install
+```

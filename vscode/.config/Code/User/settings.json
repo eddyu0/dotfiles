@@ -1,4 +1,5 @@
 {
+  "window.titleBarStyle": "custom",
   "workbench.colorTheme": "One Dark Pro Darker",
   "editor.fontFamily": "JetBrains Mono",
   "editor.tabSize": 2,
@@ -60,7 +61,7 @@
   "markdown.preview.fontSize": 18,
   "markdown.updateLinksOnFileMove.enabled": "prompt",
   "githubPullRequests.pullBranch": "never",
-  "githubPullRequests.createDraft": true,
+  "githubPullRequests.defaultCreateOption": "createDraft",
   "githubPullRequests.fileListLayout": "tree",
   "javascript.preferences.importModuleSpecifier": "non-relative",
   "typescript.preferences.importModuleSpecifier": "non-relative",
@@ -83,7 +84,7 @@
     "editor.defaultFormatter": "rust-lang.rust-analyzer"
   },
   "rust-analyzer.cargo.features": ["ssr"],
-  "rust-analyzer.rustfmt.extraArgs": [
-    "+nightly"
-  ]
+  "rust-analyzer.rustfmt.extraArgs": ["+nightly"],
+  "terminal.integrated.env.linux": {},
+  "cSpell.userWords": ["rgba"]
 }

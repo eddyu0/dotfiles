@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+# install node and npm packages
+export NVM_DIR=$HOME/.nvm;
+source $NVM_DIR/nvm.sh;
+nvm install node
+nvm use node
+npm i -g meta tldr
+
+# JetBrains Mono fonts
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh)"
+
+echo "Finish installing other packages"

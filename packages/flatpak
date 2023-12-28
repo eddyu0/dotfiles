@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+flatpak install flathub org.chromium.Chromium -y
+flatpak install flathub md.obsidian.Obsidian -y
+
+echo "Finish installing flathub packages"
