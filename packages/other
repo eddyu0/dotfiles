@@ -12,4 +12,7 @@ npm i -g meta tldr
 # JetBrains Mono fonts
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh)"
 
+# uinput for mapMouseButton.py
+pip install python-uinput evdev
+
 echo "Finish installing other packages"

@@ -14,7 +14,7 @@ ALERT="\r  [ $RED!!$COLOR_OFF ]"
 SUCCESS="\r\033[2K  [ ${GREEN}OK$COLOR_OFF ]"
 FAIL="\r\033[2K  [${RED}FAIL$COLOR_OFF]"
 
-set -euo pipefail
+set -eu
 
 setup_nala () {
   if ! test $(which nala)
@@ -45,7 +45,29 @@ delete_dotfiles () {
     if [ -f $HOME/$file ] || [ -L $HOME/$file ]
     then
       rm -f "$HOME/$file"
-      printf "$INFO Deleted dotfile $HOME/$file \n"
+      printf "$INFO Deleted dotfile $HOME/$file\n"
+    fi
+  done
+}
+
+backup_system_files () {
+  for file in $1
+  do
+    if [ -f /$file ] || [ -L /$file ]
+    then
+      sudo cp /$file /$file.bak
+      printf "$INFO backup created: /$file.bak\n"
+    fi
+  done
+}
+
+delete_system_files () {
+  for file in $1
+  do
+    if [ -f /$file ] || [ -L /$file ]
+    then
+      sudo rm -f "/$file"
+      printf "$INFO Deleted system file: /$file\n"
     fi
   done
 }
@@ -53,7 +75,7 @@ delete_dotfiles () {
 install_dotfiles () {
   printf "$INFO Installing dotfiles\n"
 
-  for package in $(find -mindepth 1 -maxdepth 1 -not -empty -not -path '*/\.git' -not -name 'packages' -type d | sed 's|^./||')
+  for package in $(find -mindepth 1 -maxdepth 1 -not -empty -not -path '*/\.git' -not -name 'packages' -not -name 'system' -type d | sed 's|^./||')
   do
     printf "$INFO Installing dotfiles for $package\n"
     CONFLICTS=$(stow --no --verbose $package 2>&1 | awk '/\* existing target is/ {print $NF}')
@@ -61,9 +83,9 @@ install_dotfiles () {
     then
       printf "$ALERT Do you want to overwrite the following exising config files?\n"
       echo $CONFLICTS | tr ' ' '\n'
-      read -p "y/n> " -e action
+      read -p "y/N> " -e action
 
-      if [ "$action" = 'y' ] || [ "$action" = 'yes' ] || [ "$action" = '' ]
+      if [ "$action" = 'y' ] || [ "$action" = 'yes' ]
       then
         delete_dotfiles "$CONFLICTS"
         stow --no-folding --verbose $package
@@ -78,8 +100,38 @@ install_dotfiles () {
   done
 }
 
+install_system_dotfiles () {
+  printf "$INFO Installing system dotfiles\n"
+
+  CONFLICTS=$(stow --no --verbose -t / system 2>&1 | awk '/\* existing target is/ {print $NF}')
+  if [ -n "$CONFLICTS" ]
+  then
+    printf "$ALERT The following system files already exists\n"
+    echo $CONFLICTS | tr ' ' '\n'
+    read -p "Overwrite? y/N> " -e action
+    
+    if [ "$action" = 'y' ] || [ "$action" = 'yes' ]
+    then
+      read -p "Make a backup? Y/n> " -e backup 
+      if [ "$backup" != 'n' ] || [ "$backup" != 'no' ]
+      then
+        backup_system_files "$CONFLICTS"
+      fi
+      delete_system_files "$CONFLICTS"
+      sudo stow --no-folding --verbose -t / system
+      printf "$SUCCESS Dotfiles installed for system\n"
+    else
+      printf "$INFO Skipping dotfiles for system\n"
+    fi
+  else
+    sudo stow --no-folding --verbose -t / system
+    printf "$SUCCESS Dotfiles installed for system\n"
+  fi
+}
+
 setup_nala
 setup_stow
 install_dotfiles
+install_system_dotfiles
 
 printf "$SUCCESS Finished!\n"

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=python3 $HOME/bin/mapMouseButton.py
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_GB]=Map mouse thumb buttons to modifier
+Name=Enable mouse zoom and horizontal scroll
+Comment[en_GB]=
+Comment=

@@ -1,0 +1,1 @@
+KERNEL=="event[0-9]*", SUBSYSTEM=="input", SUBSYSTEMS=="input", ATTRS{name}=="Logitech G403 HERO Gaming Mouse", SYMLINK+="logitech_g403_hero", GROUP="logitechgrabber", MODE="640"
