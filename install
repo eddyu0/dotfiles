@@ -8,6 +8,7 @@ set -euo pipefail
 ./packages/flatpak
 ./packages/other
 
-# find the installers aqh | while read installer ; do sh -c "${installer}" ; done
+# find the installers and run them iteratively
+find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
 
 ./post-install

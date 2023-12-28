@@ -28,6 +28,11 @@ echo \
 wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor | sudo tee /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
 echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' |\
   sudo tee /etc/apt/sources.list.d/signal-xenial.list
+# Github cli
+type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+&& sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 # update
 sudo nala update
 # themes and styles ================================
@@ -35,7 +40,7 @@ sudo nala install gnome-tweaks papirus-icon-theme -y
 # hardware =========================================
 sudo nala install hwinfo lm-sensors smartmontools -y
 # cli ==============================================
-sudo nala install neofetch vim neovim ffmpeg htop ncdu -y
+sudo nala install neofetch vim neovim ffmpeg htop ncdu gh -y
 # development ======================================
 sudo nala install python3-pip -y
 sudo nala install code sublime-text sublime-merge -y
