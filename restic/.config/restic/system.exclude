@@ -1,0 +1,15 @@
+/dev
+/home
+/lost+found
+/media
+/mnt
+/proc
+/recovery
+/root
+/run
+/sys
+/tmp
+/var/cache
+/var/lock
+/var/run
+/var/tmp

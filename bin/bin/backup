@@ -1,0 +1,128 @@
+#!/bin/bash
+
+# A script to use restic to backup to another drive
+
+CONFIG_DIR=/home/eddie/.config/restic
+MOUNT=/mnt/hynix-1tb
+RESTIC_USER_DIR=/home/restic
+
+log () {
+	# echo -e "[$(date "+%Y-%m-%d %H:%M:%S")] [info] ${1}"
+	echo -e "[info] ${1}"
+}
+
+error () {
+	echo -e "[ERROR] ${1}"
+}
+
+# $1 as backup type, $2 as command
+run () {
+	if [ "$1" == 's' ]; then
+		sudo -E -u restic $RESTIC_USER_DIR/bin/restic $2
+	else
+		restic $2
+	fi
+}
+
+read -p "Back up [s]ystem files or [u]ser files? " -e type 
+if [ "$type" == 's' ]; then
+	include_file=$CONFIG_DIR/system.include
+	exclude_file=$CONFIG_DIR/system.exclude
+	default_repo=$MOUNT/restic/system
+	export RESTIC_CACHE_DIR=$RESTIC_USER_DIR/.cache
+elif [ "$type" == 'u' ]; then
+	include_file=$CONFIG_DIR/user.include
+	exclude_file=$CONFIG_DIR/user.exclude
+	default_repo=$MOUNT/restic/user
+else
+	echo "Unsupported option $type. Exiting."
+	exit 1
+fi
+
+read -p "restic repository (default: $default_repo): " -e repo
+if [ -z "$repo" ]; then
+	repo=$default_repo
+fi
+
+read -sp "enter password for repository:" -e password
+echo
+read -sp "re-enter password:" -e password_check
+echo
+if [ "$password" != "$password_check" ]; then
+	error "Passwords did not match."
+	exit 1
+fi
+export RESTIC_PASSWORD=$password
+
+log "restic-backup.sh started"
+
+run $type "-r $repo snapshots"
+
+if [ $? -ne 0 ]
+then
+	error "Unable to list snapshots, do you want to create a new repo at $repo?"
+	read -p "y/N> " -e action
+	if [ "$action" == 'y' ] || [ "$action" == 'yes' ]; then
+		run $type "-r $repo init"
+	else
+		exit 1
+	fi
+fi
+
+log "Starting backup... [repo]: ${repo} [include-file]: ${include_file} [exclude-file]: ${exclude_file}"
+
+run $type "-r $repo backup --files-from=$include_file --iexclude-file=$exclude_file"
+
+if [ $? -eq 0 ]; then
+	log "Backup successful"
+elif [ $? -eq 1 ]; then
+	error "No snapshot is created"
+	exit 1
+elif [ $? -eq 3 ]; then
+	error "Some source files could not be read, an incomplete snapshot is created"
+	exit 3
+else
+	error "Unknown Error: restic exited with code $?"
+	exit $?
+fi
+
+log "Pruning snapshots..."
+
+# see https://restic.readthedocs.io/en/stable/060_forget.html#removing-snapshots-according-to-a-policy
+# for difference between --keep-* and --keep-within-*
+KEEP_DAYS=7
+KEEP_WEEKS=8
+KEEP_MONTHS=12
+KEEP_YEARS=10
+
+KEEP_WITHIN_DAYS=7d
+KEEP_WITHIN_WEEKS=2m
+KEEP_WITHIN_MONTHS=1y
+KEEP_WITHIN_YEARS=10y
+
+# restic forget --prune --keep-daily $KEEP_DAYS \
+	# --keep-weekly $KEEP_WEEKS \
+	# --keep-monthly $KEEP_MONTHS \
+	# --keep-yearly $KEEP_YEARS \
+	# >> $LOG 2>> $ERROR_LOG
+
+# using --keep-within for now
+run $type "-r $repo forget --prune --keep-within-daily $KEEP_WITHIN_DAYS --keep-within-weekly $KEEP_WITHIN_WEEKS --keep-within-monthly $KEEP_WITHIN_MONTHS --keep-within-yearly $KEEP_WITHIN_YEARS"
+
+if [ $? -eq 0 ]; then
+	log "Snapshots pruning successful"
+else
+	error "Failed to prune snapshots"
+fi
+
+log "Running check"
+
+run $type "-r $repo check"
+
+if [ $? -eq 0 ]; then
+	log "No errors were found"
+	exit 0
+else
+	error "Errors were found"
+	exit $?
+fi

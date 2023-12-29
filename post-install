@@ -23,4 +23,19 @@ sudo modprobe uinput
 sudo groupadd logitechgrabber
 sudo usermod -aG logitechgrabber $USER
 
+# restic completion
+sudo restic generate --bash-completion /etc/bash_completion.d/restic
+# restic full backup without root https://restic.readthedocs.io/en/stable/080_examples.html#full-backup-without-root
+sudo useradd --system --create-home --shell /sbin/nologin restic
+sudo mkdir ~restic/bin
+sudo sh -c "curl -L https://github.com/restic/restic/releases/download/v0.16.2/restic_0.16.2_linux_amd64.bz2 | bunzip2 > ~restic/bin/restic"
+sudo chown root:restic ~restic/bin/restic
+sudo chmod 750 ~restic/bin/restic
+
+# you want to run this every time after a restic self-update
+sudo setcap cap_dac_read_search=+ep ~restic/bin/restic
+
+# Finally to run a backup with restic as user
+# sudo -u restic /home/restic/bin/restic --exclude={/dev,/media,/mnt,/proc,/run,/sys,/tmp,/var/tmp} -r /tmp backup /
+
 echo "Finish running post installation"

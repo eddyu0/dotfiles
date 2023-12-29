@@ -87,5 +87,6 @@
   "rust-analyzer.cargo.features": ["ssr"],
   "rust-analyzer.rustfmt.extraArgs": ["+nightly"],
   "terminal.integrated.env.linux": {},
-  "cSpell.userWords": ["rgba"]
+  "cSpell.userWords": ["rgba"],
+  "console-ninja.featureSet": "Community"
 }
