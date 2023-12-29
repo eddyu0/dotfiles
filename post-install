@@ -38,4 +38,7 @@ sudo setcap cap_dac_read_search=+ep ~restic/bin/restic
 # Finally to run a backup with restic as user
 # sudo -u restic /home/restic/bin/restic --exclude={/dev,/media,/mnt,/proc,/run,/sys,/tmp,/var/tmp} -r /tmp backup /
 
+# enable syncthing service
+systemctl --user enable syncthing.service
+
 echo "Finish running post installation"
