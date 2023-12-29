@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
 
-set -euxo pipefail
+set -euo pipefail
 
 # fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+if !  [ -d ~/.fzf ]; then
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+fi
+cd ~/.fzf
+git checkout master
+git pull
+cd -
 ~/.fzf/install
 # cheat.sh
 curl -s https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh && sudo chmod +x /usr/local/bin/cht.sh
@@ -12,7 +18,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 # aws cli
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip"
 unzip /tmp/awscliv2.zip -d /tmp
-sudo /tmp/aws/install
+sudo /tmp/aws/install --update
 # Bitwarden
 wget -O /tmp/bitwarden.deb "https://vault.bitwarden.com/download/?app=desktop&platform=linux&variant=deb"
 sudo nala install /tmp/bitwarden.deb

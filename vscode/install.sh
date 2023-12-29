@@ -3,3 +3,5 @@
 set -euo pipefail
 
 cat $(dirname $0)/extensions | grep -v '^#' | xargs -L1 code --install-extension
+
+echo "Finish installing vscode extensions"

@@ -20,14 +20,20 @@ complete -C $completer_path aws
 
 # mapMouseButton
 sudo modprobe uinput
-sudo groupadd logitechgrabber
+if ! [ $(getent group logitechgrabber) ]; then
+  sudo groupadd logitechgrabber
+fi
 sudo usermod -aG logitechgrabber $USER
 
 # restic completion
 sudo restic generate --bash-completion /etc/bash_completion.d/restic
 # restic full backup without root https://restic.readthedocs.io/en/stable/080_examples.html#full-backup-without-root
-sudo useradd --system --create-home --shell /sbin/nologin restic
-sudo mkdir ~restic/bin
+if ! id restic >/dev/null 2>&1; then
+  sudo useradd --system --create-home --shell /sbin/nologin restic
+fi
+if ! sudo test -d ~restic/bin; then
+  sudo mkdir ~restic/bin
+fi
 sudo sh -c "curl -L https://github.com/restic/restic/releases/download/v0.16.2/restic_0.16.2_linux_amd64.bz2 | bunzip2 > ~restic/bin/restic"
 sudo chown root:restic ~restic/bin/restic
 sudo chmod 750 ~restic/bin/restic

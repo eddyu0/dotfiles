@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euxo pipefail
+set -euo pipefail
 
 # install node and npm packages
 export NVM_DIR=$HOME/.nvm;
