@@ -46,5 +46,6 @@ sudo setcap cap_dac_read_search=+ep ~restic/bin/restic
 
 # enable syncthing service
 systemctl --user enable syncthing.service
+systemctl --user start syncthing.service
 
 echo "Finish running post installation"
