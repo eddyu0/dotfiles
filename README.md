@@ -51,3 +51,13 @@ sudo apt install initramfs-tools
 sudo update-initramfs -k all -c
 reboot
 ```
+
+### Disable elementary appcenter on start
+
+credit to marvelggg's [answer](https://www.reddit.com/r/pop_os/comments/rdz3as/comment/ho4u4bq/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button)
+
+```sh
+mkdir -p ~/.config/autostart
+cp /etc/xdg/autostart/io.elementary.appcenter-daemon.desktop ~/.config/autostart/
+echo "X-GNOME-Autostart-enabled=false" >> ~/.config/autostart/io.elementary.appcenter-daemon.desktop
+```
