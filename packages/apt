@@ -8,6 +8,7 @@ sudo nala install ca-certificates curl wget gnupg apt-transport-https -y
 sudo nala install ubuntu-restricted-extras -y
 sudo nala install libev-dev libx11-dev libxi-dev -y # XMousePasteBlock dependencies
 sudo nala install rlwrap -y # cheat.sh cli shell mode
+sudo nala install zstd libxcb-xinerama0 libxcb-cursor0 mpv -y # anki
 # keys & repos =====================================
 sudo add-apt-repository ppa:papirus/papirus
 # Sublime

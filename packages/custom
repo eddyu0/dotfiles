@@ -31,5 +31,11 @@ sudo nala install /tmp/google-chrome-stable_current_amd64.deb -y
 # restic
 sudo sh -c "curl -L https://github.com/restic/restic/releases/download/v0.16.2/restic_0.16.2_linux_amd64.bz2 | bunzip2 > /usr/local/bin/restic"
 sudo chmod +x /usr/local/bin/restic
+# anki
+wget -P /tmp https://github.com/ankitects/anki/releases/download/23.12.1/anki-23.12.1-linux-qt6.tar.zst
+tar xaf /tmp/anki-23.12.1-linux-qt6.tar.zst --directory /tmp
+cd /tmp/anki-23.12.1-linux-qt6
+sudo ./install.sh
+cd -
 
 echo "Finish installing custom packages"
