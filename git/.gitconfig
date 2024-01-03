@@ -31,5 +31,5 @@
     	aca = !git add . && git commit --amend
 #[commit]
 	#gpgsign = true
-#[includeIf "gitdir:$TARGET_DIR"]
-	#path = $TARGET_DIR/.gitconfig
+[includeIf "gitdir:~/work/"]
+	path = ~/work/.gitconfig
