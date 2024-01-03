@@ -6,21 +6,21 @@ Most of the configuration are specific to Ubuntu 22.04 (Pop_os 22.04).
 
 ## Usage
 
-Bootstrap: install `nala`, `stow`, and then sym-links user dotfiles and system dotfiles using `stow`.
+`bootstrap`: install `nala`, `stow`, and then sym-links user dotfiles using `stow`.
 
-The dotfiles are symlinks to the destination following the sub-folder structure. The system dotfiles folder is mapped to `/` while others are mapped to `$HOME`.
+The dotfiles are symlinks to the destination following the sub-folder structure. The dotfiles are mapped to `$HOME` directory, assuming you clone this directory under `$HOME`.
 
 ```sh
 ./bootstrap
 ```
 
-Using scripts in the `packages/` folder to install packages from apt, custom install steps, flatpak, and other sources such as npm and pip. Then runs every `install.sh` script in each folder (currently only vscode extension). Finally runs `post-install` for application specific setups.
+`install`: Using scripts in the `packages/` folder to install packages from apt, custom install steps, flatpak, and other sources such as npm and pip. Then runs every `install.sh` script in each folder (currently only vscode extension). Finally runs `post-install` for application specific setups.
 
 ```sh
 ./install
 ```
 
-The `update` script can be used to update packages that do not provide auto-update/package manger update.
+`update`: The `update` script can be used to update packages that do not provide auto-update/package manger update.
 
 ```sh
 ./update
