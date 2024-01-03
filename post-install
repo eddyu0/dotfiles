@@ -16,7 +16,7 @@ curl https://cheat.sh/:bash_completion > ~/.bash.d/cht.sh
 
 # aws bash completion
 completer_path=$(which aws_completer)
-complete -C $completer_path aws
+complete -C '$completer_path' aws
 
 # mapMouseButton
 sudo modprobe uinput

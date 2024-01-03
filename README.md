@@ -61,3 +61,38 @@ mkdir -p ~/.config/autostart
 cp /etc/xdg/autostart/io.elementary.appcenter-daemon.desktop ~/.config/autostart/
 echo "X-GNOME-Autostart-enabled=false" >> ~/.config/autostart/io.elementary.appcenter-daemon.desktop
 ```
+
+### Samba server
+
+```sh
+$ sudo vi /etc/samba/smb.conf
+[Public]
+comment = Samba on Ubuntu
+path = /home/username/Public
+read only = no
+browsable = yes
+```
+
+```sh
+sudo service smbd restart
+sudo ufw allow Samba
+sudo smbpasswd -a username
+```
+
+Show users
+
+```sh
+sudo pdbedit -L -v
+```
+
+Connect
+
+```sh
+smbclient \\\\host\\Public
+```
+
+Mount
+
+```sh
+mount -t cifs -o username=bob //host/Public /mnt/path
+```
