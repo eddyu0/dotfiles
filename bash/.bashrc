@@ -127,3 +127,11 @@ export NVM_DIR="$HOME/.nvm"
 . ~/.bash.d/cht.sh
 
 PATH=~/.console-ninja/.bin:$PATH
+
+alias python='python3'
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+export PATH="/home/eddie/.local/bin:$PATH"

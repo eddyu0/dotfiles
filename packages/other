@@ -15,4 +15,7 @@ npm i -g meta tldr
 # uinput for mapMouseButton.py
 pip install python-uinput evdev
 
+# pyenv
+pyenv install 3.11
+
 echo "Finish installing other packages"
