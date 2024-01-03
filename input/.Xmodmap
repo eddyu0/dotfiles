@@ -1,0 +1,3 @@
+! Disable thumb forward/backward button 8, 9
+! Is mapped to ctrl and shift with uinput and python script
+pointer = 1 2 3 4 5 6 7 0 0
