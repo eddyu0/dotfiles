@@ -132,6 +132,6 @@ install_system_dotfiles () {
 setup_nala
 setup_stow
 install_dotfiles
-install_system_dotfiles
+# install_system_dotfiles # removing system setup as it was a bad idea to have system files modifiable by user
 
 printf "$SUCCESS Finished!\n"
