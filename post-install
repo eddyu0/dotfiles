@@ -14,10 +14,6 @@ curl https://cheat.sh/:bash_completion > ~/.bash.d/cht.sh
 . ~/.bash.d/cht.sh
 # and add . ~/.bash.d/cht.sh to ~/.bashrc
 
-# aws bash completion
-completer_path=$(which aws_completer)
-complete -C '$completer_path' aws
-
 # mapMouseButton
 sudo modprobe uinput
 if ! [ $(getent group logitechgrabber) ]; then

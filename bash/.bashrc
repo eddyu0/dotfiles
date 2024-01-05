@@ -135,3 +135,5 @@ command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 export PATH="/home/eddie/.local/bin:$PATH"
+
+complete -C '/usr/local/bin/aws_completer' aws
