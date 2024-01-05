@@ -46,12 +46,7 @@ fi
 
 read -sp "enter password for repository:" -e password
 echo
-read -sp "re-enter password:" -e password_check
-echo
-if [ "$password" != "$password_check" ]; then
-	error "Passwords did not match."
-	exit 1
-fi
+
 export RESTIC_PASSWORD=$password
 
 log "restic-backup.sh started"
