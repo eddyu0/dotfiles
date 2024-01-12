@@ -41,5 +41,8 @@ cd -
 curl https://pyenv.run | bash
 # poetry
 curl -sSL https://install.python-poetry.org | python3 -
+# discord
+curl "https://discord.com/api/download/stable?platform=linux&format=deb" -o /tmp/discord.deb
+sudo nala install /tmp/discord.deb
 
 echo "Finish installing custom packages"

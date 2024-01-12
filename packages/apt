@@ -60,10 +60,10 @@ sudo nala install docker-ce docker-ce-cli containerd.io docker-buildx-plugin doc
 # files and backup =================================
 sudo nala install rclone rclone-browser timeshift syncthing samba -y
 # communication ====================================
-sudo nala install discord signal-desktop slack-desktop -y
+sudo nala install signal-desktop slack-desktop -y
 # gaming ===========================================
 sudo nala install steam -y
 # utilities  =======================================
-sudo nala install gnome-clocks meld flameshot peek gimp -y
+sudo nala install gnome-clocks meld flameshot gimp -y
 
 echo "Finish installing apt packages"
