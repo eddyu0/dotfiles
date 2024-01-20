@@ -126,7 +126,7 @@
     },
     "when": "editorTextFocus"
   },
-    /* line editing */
+  /* line editing */
   {
     "key": "alt+j",
     "command": "editor.action.moveLinesDownAction",
@@ -332,6 +332,16 @@
     "key": "ctrl+shift+[",
     "command": "editor.action.jumpToBracket",
     "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+e",
+    "command": "workbench.view.explorer",
+    "when": "viewContainer.workbench.view.explorer.enabled"
+  },
+  {
+    "key": "ctrl+shift+e",
+    "command": "-workbench.view.explorer",
+    "when": "viewContainer.workbench.view.explorer.enabled"
   }
   /*  */
 ]
