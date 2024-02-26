@@ -10,6 +10,7 @@ sudo nala install libev-dev libx11-dev libxi-dev -y # XMousePasteBlock dependenc
 sudo nala install rlwrap -y # cheat.sh cli shell mode
 sudo nala install zstd libxcb-xinerama0 libxcb-cursor0 mpv -y # anki
 sudo nala install libcurl4-openssl-dev libssl-dev -y # pycurl
+sudo nala install ibus-mozc # Japanese input
 # pyenv python build dependencies
 sudo nala install build-essential libssl-dev zlib1g-dev \
 libbz2-dev libreadline-dev libsqlite3-dev curl \
