@@ -36,7 +36,7 @@ shift_keyboard.emit_click(uinput.KEY_KEYBOARD)
 
 # Declare device patch.
 # I made a udev rule to assure it's always the same name
-dev = InputDevice("/dev/logitech_g403_hero")
+dev = InputDevice("/dev/logitech_ergo_m575")
 # print(dev)
 ctrl_key_on = False
 shift_key_on = False
