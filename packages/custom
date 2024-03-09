@@ -44,5 +44,8 @@ curl -sSL https://install.python-poetry.org | python3 -
 # discord
 curl "https://discord.com/api/download/stable?platform=linux&format=deb" -o /tmp/discord.deb
 sudo nala install /tmp/discord.deb
+#  telegram
+curl -ssL "https://telegram.org/dl/desktop/linux" -o /tmp/telegram.tar.xz
+tar -xf /tmp/telegram.tar.xz --directory /opt
 
 echo "Finish installing custom packages"
