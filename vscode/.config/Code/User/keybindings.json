@@ -319,7 +319,7 @@
     "when": "customTreeView && listFocus && !inputFocus"
   },
   {
-    "key": "ctrl+shift+]",
+    "key": "ctrl+alt+[",
     "command": "editor.action.jumpToBracket",
     "when": "editorTextFocus"
   },
@@ -329,7 +329,7 @@
     "when": "editorTextFocus"
   },
   {
-    "key": "ctrl+shift+[",
+    "key": "ctrl+alt+]",
     "command": "editor.action.jumpToBracket",
     "when": "editorTextFocus"
   }
