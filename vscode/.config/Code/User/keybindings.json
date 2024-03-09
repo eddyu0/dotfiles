@@ -107,22 +107,22 @@
     "when": "editorTextFocus"
   },
   {
-    "key": "ctrl+alt+u",
+    "key": "ctrl+alt+i",
     "command": "cursorMove",
     "args": {
       "to": "up",
       "by": "line",
-      "value": 10
+      "value": 30
     },
     "when": "editorTextFocus"
   },
   {
-    "key": "ctrl+alt+d",
+    "key": "ctrl+alt+u",
     "command": "cursorMove",
     "args": {
       "to": "down",
       "by": "line",
-      "value": 10
+      "value": 30
     },
     "when": "editorTextFocus"
   },
@@ -332,16 +332,6 @@
     "key": "ctrl+shift+[",
     "command": "editor.action.jumpToBracket",
     "when": "editorTextFocus"
-  },
-  {
-    "key": "ctrl+e",
-    "command": "workbench.view.explorer",
-    "when": "viewContainer.workbench.view.explorer.enabled"
-  },
-  {
-    "key": "ctrl+shift+e",
-    "command": "-workbench.view.explorer",
-    "when": "viewContainer.workbench.view.explorer.enabled"
   }
   /*  */
 ]
