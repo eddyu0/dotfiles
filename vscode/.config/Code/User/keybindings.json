@@ -332,6 +332,15 @@
     "key": "ctrl+alt+]",
     "command": "editor.action.jumpToBracket",
     "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+r",
+    "command": "workbench.action.showAllSymbols"
+  },
+  {
+    "key": "ctrl+t",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active"
   }
   /*  */
 ]
